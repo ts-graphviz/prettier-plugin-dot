@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "importHelpers": true,
+    "target": "ES2015",
+    "strict": true,
+    "lib": [
+      "esnext"
+    ],
+    "allowJs": false,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "outDir": "lib",
+    "rootDir": "src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "declaration": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/test",
+    "src/**/*.test.ts"
+  ]
+}
