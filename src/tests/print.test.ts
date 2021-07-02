@@ -153,6 +153,16 @@ test('simple edge', () => {
       a -> b;
     }
   `);
+
+  expect(
+    format(`
+    graph { a -- b }
+    `),
+  ).toMatchInlineSnapshot(`
+    graph {
+      a -- b;
+    }
+  `);
 });
 
 test('complex edge', () => {
@@ -191,6 +201,7 @@ test('anonymous subgraph', () => {
   ).toMatchInlineSnapshot(`
     digraph {
       subgraph {
+
       }
     }
   `);
@@ -206,6 +217,7 @@ test('named subgraph', () => {
   ).toMatchInlineSnapshot(`
     digraph {
       subgraph hoge {
+
       }
     }
   `);
@@ -236,9 +248,7 @@ test('HTML Like label', () => {
     `),
   ).toMatchInlineSnapshot(`
     digraph {
-      label=<
-        <b>bold</b>
-        >;
+      label=<<b>bold</b>>;
     }
   `);
 
@@ -250,9 +260,7 @@ test('HTML Like label', () => {
     `),
   ).toMatchInlineSnapshot(`
     digraph {
-      label=<
-        html like label
-        >;
+      label=<html like label>;
     }
   `);
 
@@ -272,7 +280,7 @@ test('HTML Like label', () => {
             <td PORT="r">right</td>
           </tr>
         </table>
-        >;
+      >;
     }
   `);
 });

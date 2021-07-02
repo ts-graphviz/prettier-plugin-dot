@@ -29,7 +29,7 @@
   "scripts": {
     "test": "jest",
     "build": "rollup -c && prettier --write './lib/*'",
-    "format": "eslint -c .eslintrc.json --ext ts src --fix && prettier --write './src/**/*.ts'",
+    "format": "eslint -c .eslintrc.json --ext ts src --fix && prettier --write .",
     "lint": "eslint -c .eslintrc.json --ext ts src"
   },
   "peerDependencies": {

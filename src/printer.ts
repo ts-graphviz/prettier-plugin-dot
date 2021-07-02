@@ -5,6 +5,18 @@ const {
   builders: { group, join, indent, hardline, softline, line, ifBreak },
 } = doc;
 
+function getGraph(path: AstPath<AST.ASTNode>): AST.Graph | null {
+  const node: AST.ASTNode | null = null;
+  let count = 0;
+  do {
+    const node = path.getParentNode(count++);
+    if (node !== null && node.type === AST.Types.Graph) {
+      return node;
+    }
+  } while (node !== null);
+  return null;
+}
+
 export const DotASTPrinter: Printer<AST.ASTNode> = {
   print(path: AstPath<AST.ASTNode>, options, print): Doc {
     const node = path.getValue();
@@ -50,15 +62,16 @@ export const DotASTPrinter: Printer<AST.ASTNode> = {
             return join(hardline, ['/**', ...node.value.split('\n').map((l) => join(' ', [' *', l])), ' */']);
         }
       case AST.Types.Edge:
+        const graph = getGraph(path);
         if (node.body.length > 0) {
           return [
-            group([join(' -> ', path.map(print, 'targets')), ' [']),
+            group([join(graph?.directed ? ' -> ' : ' -- ', path.map(print, 'targets')), ' [']),
             indent([line, path.map(print, 'body')]),
             softline,
             '];',
           ];
         }
-        return [group([join(' -> ', path.map(print, 'targets')), ';'])];
+        return [group([join(graph?.directed ? ' -> ' : ' -- ', path.map(print, 'targets')), ';'])];
       case AST.Types.Node:
         if (node.body.length > 0) {
           return [
@@ -90,7 +103,7 @@ export const DotASTPrinter: Printer<AST.ASTNode> = {
       case AST.Types.Subgraph:
         return [
           node.id ? group(['subgraph ', path.call(print, 'id'), ifBreak(softline, ' '), '{']) : 'subgraph {',
-          indent(join(line, path.map(print, 'body'))),
+          indent([line, join(line, path.map(print, 'body'))]),
           softline,
           '}',
         ];
@@ -99,7 +112,12 @@ export const DotASTPrinter: Printer<AST.ASTNode> = {
   embed(path, print, textToDoc, options) {
     const node = path.getValue();
     if (node.type == AST.Types.Literal && node.quoted === 'html') {
-      return ['<', indent([softline, textToDoc(node.value, { ...options, parser: 'html' })]), '>'];
+      const htmlLike = textToDoc(node.value, { ...options, parser: 'html' });
+      if (Array.isArray(htmlLike)) {
+        const index = htmlLike.lastIndexOf(hardline);
+        htmlLike.splice(index, 1);
+      }
+      return group(['<', indent([softline, htmlLike]), softline, '>']);
     }
     return null;
   },
