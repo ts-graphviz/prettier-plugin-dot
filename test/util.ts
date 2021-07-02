@@ -1,5 +1,5 @@
 import Prettier, { Options } from 'prettier';
-import * as plugin from '../index';
+import * as plugin from '../src/index';
 
 /**
  * Format `source` dot code using Prettier to format/render
