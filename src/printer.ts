@@ -1,5 +1,5 @@
 import { AST } from '@ts-graphviz/parser';
-import { Printer, doc, AstPath, Doc, util } from 'prettier';
+import { Printer, doc, AstPath, Doc, util, ParserOptions } from 'prettier';
 
 const {
   builders: { group, join, indent, hardline, softline, line, ifBreak },
@@ -17,98 +17,125 @@ function getGraph(path: AstPath<AST.ASTNode>): AST.Graph | null {
   }
 }
 
+interface PrintOption<N extends AST.ASTBaseNode> {
+  node: N;
+  path: AstPath<AST.ASTNode>;
+  options: ParserOptions;
+  print: (path: AstPath) => Doc;
+}
+
+function printDot({ path, print }: PrintOption<AST.Dot>): Doc {
+  return join(hardline, path.map(print, 'body'));
+}
+
+function printGraph({ node, path, print }: PrintOption<AST.Graph>): Doc {
+  const parts: Doc[] = [
+    ...(node.strict ? ['strict '] : []),
+    node.directed ? 'digraph ' : 'graph ',
+    ...(node.id ? [path.call(print, 'id'), ' '] : []),
+    softline,
+  ];
+  return node.body.length === 0
+    ? [group([...parts, '{}'])]
+    : [group([...parts, '{']), indent([line, join(softline, path.map(print, 'body'))]), softline, '}'];
+}
+
+function printAttribute({ path, print }: PrintOption<AST.Attribute>): Doc {
+  return [path.call(print, 'key'), '=', path.call(print, 'value'), ';'];
+}
+
+function printAttributes({ node, path, print }: PrintOption<AST.Attributes>): Doc {
+  return [group([node.kind, ' [']), indent([line, path.map(print, 'body')]), hardline, '];'];
+}
+
+function printComment({ node }: PrintOption<AST.Comment>): Doc {
+  switch (node.kind) {
+    case AST.Comment.Kind.Slash:
+      return join(
+        hardline,
+        node.value.split('\n').map((l) => join(' ', ['//', l])),
+      );
+    case AST.Comment.Kind.Macro:
+      return join(
+        hardline,
+        node.value.split('\n').map((l) => join(' ', ['#', l])),
+      );
+    case AST.Comment.Kind.Block:
+      return join(hardline, ['/**', ...node.value.split('\n').map((l) => join(' ', [' *', l])), ' */']);
+  }
+}
+
+function printEdge({ node, path, print }: PrintOption<AST.Edge>): Doc {
+  return node.body.length === 0
+    ? [group([join(getGraph(path)?.directed ? ' -> ' : ' -- ', path.map(print, 'targets')), ';'])]
+    : [
+        group([join(getGraph(path)?.directed ? ' -> ' : ' -- ', path.map(print, 'targets')), ' [']),
+        indent([line, path.map(print, 'body')]),
+        softline,
+        '];',
+      ];
+}
+
+function printNode({ node, path, print }: PrintOption<AST.Node>): Doc {
+  return node.body.length === 0
+    ? [path.call(print, 'id'), ';']
+    : [group([path.call(print, 'id'), ' [']), indent([line, join(hardline, path.map(print, 'body'))]), softline, '];'];
+}
+
+function printLiteral({ node }: PrintOption<AST.Literal>): Doc {
+  switch (node.quoted) {
+    case true:
+      return util.makeString(node.value, '"');
+    case false:
+      return node.value;
+    case 'html':
+      return ['<', node.value, '>'];
+  }
+}
+
+function printSubgraph({ node, path, print }: PrintOption<AST.Subgraph>): Doc {
+  return node.body.length === 0
+    ? [node.id ? group(['subgraph ', path.call(print, 'id'), ifBreak(softline, ' '), '{}']) : 'subgraph {}']
+    : [
+        node.id ? group(['subgraph ', path.call(print, 'id'), ifBreak(softline, ' '), '{']) : 'subgraph {',
+        indent([path.map((p) => [softline, print(p)], 'body')]),
+        softline,
+        '}',
+      ];
+}
+
+function printNodeRef({ node, path, print }: PrintOption<AST.NodeRef>): Doc {
+  return join(':', [
+    path.call(print, 'id'),
+    ...(node.port ? [path.call(print, 'port')] : []),
+    ...(node.compass ? [path.call(print, 'compass')] : []),
+  ]);
+}
+
 export const DotASTPrinter: Printer<AST.ASTNode> = {
-  print(path: AstPath<AST.ASTNode>, options, print): Doc {
+  print(path: AstPath<AST.ASTNode>, options: ParserOptions, print: (path: AstPath) => Doc): Doc {
     const node = path.getValue();
     switch (node.type) {
       case AST.Types.Dot:
-        return join(hardline, path.map(print, 'body'));
+        return printDot({ node, path, options, print });
       case AST.Types.Graph:
-        const parts: Doc[] = [];
-        if (node.strict) {
-          parts.push('strict ');
-        }
-        parts.push(node.directed ? 'digraph ' : 'graph ');
-        if (node.id) {
-          parts.push(path.call(print, 'id'), ' ');
-        }
-
-        if (node.body.length > 0) {
-          return [
-            group([parts, softline, '{']),
-            indent([line, join(softline, path.map(print, 'body'))]),
-            softline,
-            '}',
-          ];
-        }
-        return [group([parts, softline, '{']), '}'];
+        return printGraph({ node, path, options, print });
       case AST.Types.Attribute:
-        return [path.call(print, 'key'), '=', path.call(print, 'value'), ';'];
+        return printAttribute({ node, path, options, print });
       case AST.Types.Attributes:
-        return [group([node.kind, ' [']), indent([line, path.map(print, 'body')]), hardline, '];'];
+        return printAttributes({ node, path, options, print });
       case AST.Types.Comment:
-        switch (node.kind) {
-          case AST.Comment.Kind.Slash:
-            return join(
-              hardline,
-              node.value.split('\n').map((l) => join(' ', ['//', l])),
-            );
-          case AST.Comment.Kind.Macro:
-            return join(
-              hardline,
-              node.value.split('\n').map((l) => join(' ', ['#', l])),
-            );
-          case AST.Comment.Kind.Block:
-            return join(hardline, ['/**', ...node.value.split('\n').map((l) => join(' ', [' *', l])), ' */']);
-        }
+        return printComment({ node, path, options, print });
       case AST.Types.Edge:
-        const graph = getGraph(path);
-        if (node.body.length > 0) {
-          return [
-            group([join(graph?.directed ? ' -> ' : ' -- ', path.map(print, 'targets')), ' [']),
-            indent([line, path.map(print, 'body')]),
-            softline,
-            '];',
-          ];
-        }
-        return [group([join(graph?.directed ? ' -> ' : ' -- ', path.map(print, 'targets')), ';'])];
+        return printEdge({ node, path, options, print });
       case AST.Types.Node:
-        if (node.body.length > 0) {
-          return [
-            group([path.call(print, 'id'), ' [']),
-            indent([line, join(hardline, path.map(print, 'body'))]),
-            softline,
-            '];',
-          ];
-        }
-        return [path.call(print, 'id'), ';'];
+        return printNode({ node, path, options, print });
       case AST.Types.Literal:
-        switch (node.quoted) {
-          case true:
-            return util.makeString(node.value, '"');
-          case false:
-            return node.value;
-          case 'html':
-            return ['<', node.value, '>'];
-        }
+        return printLiteral({ node, path, options, print });
       case AST.Types.NodeRef:
-        const nodeRef: Doc[] = [path.call(print, 'id')];
-        if (node.port) {
-          nodeRef.push(path.call(print, 'port'));
-        }
-        if (node.compass) {
-          nodeRef.push(path.call(print, 'compass'));
-        }
-        return join(':', nodeRef);
+        return printNodeRef({ node, path, options, print });
       case AST.Types.Subgraph:
-        return node.body.length === 0
-          ? [node.id ? group(['subgraph ', path.call(print, 'id'), ifBreak(softline, ' '), '{}']) : 'subgraph {}']
-          : [
-              node.id ? group(['subgraph ', path.call(print, 'id'), ifBreak(softline, ' '), '{']) : 'subgraph {',
-              indent([path.map((p) => [softline, print(p)], 'body')]),
-              softline,
-              '}',
-            ];
+        return printSubgraph({ node, path, options, print });
     }
   },
   embed(path, print, textToDoc, options) {
