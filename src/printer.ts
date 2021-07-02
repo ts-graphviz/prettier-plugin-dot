@@ -101,12 +101,14 @@ export const DotASTPrinter: Printer<AST.ASTNode> = {
         }
         return join(':', nodeRef);
       case AST.Types.Subgraph:
-        return [
-          node.id ? group(['subgraph ', path.call(print, 'id'), ifBreak(softline, ' '), '{']) : 'subgraph {',
-          indent([line, join(line, path.map(print, 'body'))]),
-          softline,
-          '}',
-        ];
+        return node.body.length === 0
+          ? [node.id ? group(['subgraph ', path.call(print, 'id'), ifBreak(softline, ' '), '{}']) : 'subgraph {}']
+          : [
+              node.id ? group(['subgraph ', path.call(print, 'id'), ifBreak(softline, ' '), '{']) : 'subgraph {',
+              indent([path.map((p) => [softline, print(p)], 'body')]),
+              softline,
+              '}',
+            ];
     }
   },
   embed(path, print, textToDoc, options) {

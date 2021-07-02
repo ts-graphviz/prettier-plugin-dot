@@ -7,9 +7,7 @@ test('anonymous subgraph', () => {
     `),
   ).toMatchInlineSnapshot(`
     digraph {
-      subgraph {
-
-      }
+      subgraph {}
     }
   `);
 });
@@ -23,9 +21,7 @@ test('named subgraph', () => {
     `),
   ).toMatchInlineSnapshot(`
     digraph {
-      subgraph hoge {
-
-      }
+      subgraph hoge {}
     }
   `);
 });
