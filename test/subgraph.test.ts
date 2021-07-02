@@ -29,3 +29,30 @@ test('named subgraph', () => {
     }
   `);
 });
+
+test('subgraph in contents', () => {
+  expect(
+    format(`
+    digraph {
+      subgraph hoge {
+
+        a;
+
+        b;
+
+        a -> b [ color=red ];
+      }
+    }
+    `),
+  ).toMatchInlineSnapshot(`
+    digraph {
+      subgraph hoge {
+        a;
+        b;
+        a -> b [
+          color=red;
+        ];
+      }
+    }
+  `);
+});

@@ -6,15 +6,15 @@ const {
 } = doc;
 
 function getGraph(path: AstPath<AST.ASTNode>): AST.Graph | null {
-  const node: AST.ASTNode | null = null;
   let count = 0;
-  do {
+  while (true) {
     const node = path.getParentNode(count++);
-    if (node !== null && node.type === AST.Types.Graph) {
+    if (node === null) {
+      return null;
+    } else if (node.type === AST.Types.Graph) {
       return node;
     }
-  } while (node !== null);
-  return null;
+  }
 }
 
 export const DotASTPrinter: Printer<AST.ASTNode> = {
