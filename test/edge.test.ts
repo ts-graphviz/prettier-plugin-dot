@@ -49,3 +49,17 @@ test('edge with attributes', () => {
     }
   `);
 });
+
+test('grouped edge target', () => {
+  expect(
+    format(`
+    digraph {
+      a:p0 -> {b:n c:p1}
+    }
+    `),
+  ).toMatchInlineSnapshot(`
+    digraph {
+      a:p0 -> { b:n c:p1 };
+    }
+  `);
+});

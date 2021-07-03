@@ -10,6 +10,7 @@ import { printGraph } from './print/graph';
 import { printLiteral } from './print/literal';
 import { printNode } from './print/node';
 import { printNodeRef } from './print/nodeRef';
+import { printNodeRefGroup } from './print/nodeRefGroup';
 import { printSubgraph } from './print/subgraph';
 
 export const DotASTPrinter: Printer<AST.ASTNode> = {
@@ -34,6 +35,8 @@ export const DotASTPrinter: Printer<AST.ASTNode> = {
         return printLiteral({ node, path, options, print });
       case AST.Types.NodeRef:
         return printNodeRef({ node, path, options, print });
+      case AST.Types.NodeRefGroup:
+        return printNodeRefGroup({ node, path, options, print });
       case AST.Types.Subgraph:
         return printSubgraph({ node, path, options, print });
     }
