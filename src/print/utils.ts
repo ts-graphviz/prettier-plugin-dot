@@ -25,3 +25,7 @@ export function printBody({ path, print, options }: PrintOption<AST.ASTNode>): D
 
   return join(hardline, parts);
 }
+
+export function getOriginal({ node, options }: PrintOption<AST.ASTNode>): string {
+  return options.originalText.slice(options.locStart(node), options.locEnd(node));
+}
