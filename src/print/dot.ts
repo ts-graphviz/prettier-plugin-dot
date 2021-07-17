@@ -1,11 +1,8 @@
 import { AST } from '@ts-graphviz/parser';
-import { doc, Doc } from 'prettier';
+import { Doc } from 'prettier';
 import { PrintOption } from './types';
+import { printBody } from './utils';
 
-const {
-  builders: { join, hardline },
-} = doc;
-
-export function printDot({ path, print }: PrintOption<AST.Dot>): Doc {
-  return join(hardline, path.map(print, 'body'));
+export function printDot(option: PrintOption<AST.Dot>): Doc {
+  return printBody(option);
 }

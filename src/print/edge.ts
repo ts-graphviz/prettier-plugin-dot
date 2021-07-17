@@ -1,6 +1,7 @@
 import { AST } from '@ts-graphviz/parser';
 import { AstPath, doc, Doc } from 'prettier';
 import { PrintOption } from './types';
+import { printBody } from './utils';
 
 const {
   builders: { join, indent, group, softline, line },
@@ -18,12 +19,13 @@ function getGraph(path: AstPath<AST.ASTNode>): AST.Graph | null {
   }
 }
 
-export function printEdge({ node, path, print }: PrintOption<AST.Edge>): Doc {
+export function printEdge(option: PrintOption<AST.Edge>): Doc {
+  const { node, path, print } = option;
   return node.body.length === 0
     ? [group([join(getGraph(path)?.directed ? ' -> ' : ' -- ', path.map(print, 'targets')), ';'])]
     : [
         group([join(getGraph(path)?.directed ? ' -> ' : ' -- ', path.map(print, 'targets')), ' [']),
-        indent([line, path.map(print, 'body')]),
+        indent([line, printBody(option)]),
         softline,
         '];',
       ];
