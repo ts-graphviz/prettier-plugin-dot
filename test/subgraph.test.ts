@@ -52,3 +52,17 @@ test('subgraph in contents', () => {
     }
   `);
 });
+
+test('short hand subgraph', () => {
+  expect(
+    format(`
+    digraph {
+      { rank=same; A; B C D }
+    }
+    `),
+  ).toMatchInlineSnapshot(`
+    digraph {
+      { rank=same; A; B; C; D; }
+    }
+  `);
+});
