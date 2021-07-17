@@ -1,6 +1,6 @@
 {
   "name": "prettier-plugin-dot",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A prettier plugin for Graphviz Dot.",
   "main": "./lib/index.js",
   "exports": {
