@@ -568,10 +568,10 @@
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
   integrity sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==
 
-"@ts-graphviz/parser@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@ts-graphviz/parser/-/parser-0.4.1.tgz#efbf5a34ce799db95a48fd6cd7dfd881bcee2d96"
-  integrity sha512-Yg0XUEcdb9M85YswAZc5lRs7B6gOumN3oALFyAQlfHxmiy9Mcy3pon9vhY1aiB83pbogu9PknhfIwoOZWf4hVw==
+"@ts-graphviz/parser@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@ts-graphviz/parser/-/parser-0.4.2.tgz#20f7dbb4e2a2fcb71c61b6219a0ddb6999274133"
+  integrity sha512-b05NABpHJEM0UQZByrpfEqZRJ8FMappkwt2pithcGu3VRUbGpFWP6w4ab+QM/+pHoGHGfbxQfdsrnqqaXkWVrQ==
   dependencies:
     ts-graphviz "^0.16.0"
 
