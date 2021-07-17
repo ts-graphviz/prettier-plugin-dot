@@ -36,7 +36,7 @@
     "prettier": "^2.0.0"
   },
   "dependencies": {
-    "@ts-graphviz/parser": "^0.3.0"
+    "@ts-graphviz/parser": "^0.4.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
