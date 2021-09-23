@@ -14,5 +14,6 @@ test('ignore', () => {
       // prettier-ignore
       node [ style=dashed ]
     }
+
   `);
 });

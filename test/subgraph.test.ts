@@ -9,6 +9,7 @@ test('anonymous subgraph', () => {
     digraph {
       subgraph {}
     }
+
   `);
 });
 
@@ -23,6 +24,7 @@ test('named subgraph', () => {
     digraph {
       subgraph hoge {}
     }
+
   `);
 });
 
@@ -50,6 +52,7 @@ test('subgraph in contents', () => {
         ];
       }
     }
+
   `);
 });
 
@@ -64,5 +67,6 @@ test('short hand subgraph', () => {
     digraph {
       { rank=same; A; B; C; D; }
     }
+
   `);
 });

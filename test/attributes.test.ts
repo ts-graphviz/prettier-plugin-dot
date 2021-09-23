@@ -13,6 +13,7 @@ test('attributes', () => {
         style=dashed;
       ];
     }
+
   `);
 });
 
@@ -27,6 +28,7 @@ test('HTML Like label', () => {
     digraph {
       label=<<b>bold</b>>;
     }
+
   `);
 
   expect(
@@ -39,6 +41,7 @@ test('HTML Like label', () => {
     digraph {
       label=<html like label>;
     }
+
   `);
 
   expect(
@@ -59,5 +62,6 @@ test('HTML Like label', () => {
         </table>
       >;
     }
+
   `);
 });

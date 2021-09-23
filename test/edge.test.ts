@@ -9,6 +9,7 @@ test('simple edge', () => {
     digraph {
       a -> b;
     }
+
   `);
 
   expect(
@@ -19,6 +20,7 @@ test('simple edge', () => {
     graph {
       a -- b;
     }
+
   `);
 });
 
@@ -31,6 +33,7 @@ test('complex edge', () => {
     digraph {
       a:n -> b:p1 -> c:p1:e;
     }
+
   `);
 });
 
@@ -47,6 +50,7 @@ test('edge with attributes', () => {
         style=dashed;
       ];
     }
+
   `);
 });
 
@@ -61,5 +65,6 @@ test('grouped edge target', () => {
     digraph {
       a:p0 -> { b:n c:p1 };
     }
+
   `);
 });

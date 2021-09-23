@@ -11,6 +11,7 @@ test('slash comment', () => {
     // hoge
     // fuga
     digraph {}
+
   `);
 });
 
@@ -23,6 +24,7 @@ test('macro comment', () => {
   ).toMatchInlineSnapshot(`
     # foo
     digraph {}
+
   `);
 });
 
@@ -43,6 +45,7 @@ test('block comment', () => {
      * C
      */
     digraph {}
+
   `);
 
   expect(
@@ -55,5 +58,6 @@ test('block comment', () => {
      * hoge
      */
     digraph {}
+
   `);
 });

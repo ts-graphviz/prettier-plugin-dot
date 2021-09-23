@@ -11,6 +11,7 @@ test('simple node', () => {
     digraph {
       a;
     }
+
   `);
 });
 
@@ -28,5 +29,6 @@ test('node with attributes', () => {
         style=filled;
       ];
     }
+
   `);
 });
