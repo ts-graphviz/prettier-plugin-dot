@@ -7,7 +7,10 @@ test('anonymous digraph', () => {
 
       }
     `),
-  ).toMatchInlineSnapshot(`digraph {}`);
+  ).toMatchInlineSnapshot(`
+    digraph {}
+
+  `);
 });
 
 test('anonymous graph', () => {
@@ -16,7 +19,10 @@ test('anonymous graph', () => {
       graph {
       }
     `),
-  ).toMatchInlineSnapshot(`graph {}`);
+  ).toMatchInlineSnapshot(`
+    graph {}
+
+  `);
 });
 
 test('strict anonymous graph', () => {
@@ -24,7 +30,10 @@ test('strict anonymous graph', () => {
     format(`
       strict graph { }
     `),
-  ).toMatchInlineSnapshot(`strict graph {}`);
+  ).toMatchInlineSnapshot(`
+    strict graph {}
+
+  `);
 });
 
 test('strict anonymous digraph', () => {
@@ -32,7 +41,10 @@ test('strict anonymous digraph', () => {
     format(`
     strict digraph { }
     `),
-  ).toMatchInlineSnapshot(`strict digraph {}`);
+  ).toMatchInlineSnapshot(`
+    strict digraph {}
+
+  `);
 });
 
 test('named digraph', () => {
@@ -40,7 +52,10 @@ test('named digraph', () => {
     format(`
       digraph hoge { }
     `),
-  ).toMatchInlineSnapshot(`digraph hoge {}`);
+  ).toMatchInlineSnapshot(`
+    digraph hoge {}
+
+  `);
 });
 
 test('long name digraph', () => {
@@ -51,5 +66,6 @@ test('long name digraph', () => {
   ).toMatchInlineSnapshot(`
     digraph hogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehogehoge
     {}
+
   `);
 });
