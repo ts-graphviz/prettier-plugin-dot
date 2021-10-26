@@ -25,6 +25,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "safareli",
+      "name": "Irakli Safareli",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1932383?v=4",
+      "profile": "http://safareli.github.io/resume/",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
