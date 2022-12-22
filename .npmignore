@@ -6,6 +6,7 @@
 .prettierignore
 .prettierrc.json
 .vscode
+CONTRIBUTING.md
 coverage
 grammar
 jest.config.ts
