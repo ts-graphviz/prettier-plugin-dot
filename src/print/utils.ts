@@ -1,31 +1,36 @@
-import { AST } from '@ts-graphviz/parser';
 import { doc, Doc } from 'prettier';
-import { printOriginal } from './original';
-import { PrintOption } from './types';
+import { ASTNode, CommentASTNode } from 'ts-graphviz/ast';
+import { PrintOption } from './types.js';
 
 const {
-  builders: { join, hardline },
+  builders: { join, hardline, literalline },
 } = doc;
 
-export function isPrettierIgnoreComment(comment: AST.Comment): boolean {
+export function isPrettierIgnoreComment(comment: CommentASTNode): boolean {
   return comment.value.trim() === 'prettier-ignore';
 }
 
-export function printBody({ path, print, options }: PrintOption<AST.ASTNode>): Doc {
+export function printOriginal(option: PrintOption<ASTNode>): Doc {
+  return getOriginal(option)
+    .split('\n')
+    .flatMap((o, i) => (i == 0 ? o : [literalline, o]));
+}
+
+export function printBody({ path, print, options }: PrintOption<ASTNode>): Doc {
   const parts: Doc[] = [];
   path.each((pathChild, i, nodes) => {
-    const prevNode: AST.ASTNode = nodes[i - 1];
-    if (prevNode && prevNode.type === AST.Types.Comment && prevNode.value.trim() === 'prettier-ignore') {
+    const prevNode: ASTNode = nodes[i - 1];
+    if (prevNode && prevNode.type === 'Comment' && prevNode.value.trim() === 'prettier-ignore') {
       const childNode = pathChild.getValue();
       parts.push(printOriginal({ node: childNode, path: pathChild, print, options }));
     } else {
       parts.push(print(pathChild));
     }
-  }, 'body');
+  }, 'children');
 
   return join(hardline, parts);
 }
 
-export function getOriginal({ node, options }: PrintOption<AST.ASTNode>): string {
+export function getOriginal({ node, options }: PrintOption<ASTNode>): string {
   return options.originalText.slice(options.locStart(node), options.locEnd(node));
 }

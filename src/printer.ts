@@ -1,43 +1,43 @@
-import { AST } from '@ts-graphviz/parser';
+import { ASTNode } from 'ts-graphviz/ast';
 import { Printer, AstPath, Doc, ParserOptions } from 'prettier';
-import { printAttribute } from './print/attribute';
-import { printAttributes } from './print/attributes';
-import { printComment } from './print/comment';
-import { printDot } from './print/dot';
-import { printEdge } from './print/edge';
-import { embed } from './print/embed';
-import { printGraph } from './print/graph';
-import { printLiteral } from './print/literal';
-import { printNode } from './print/node';
-import { printNodeRef } from './print/nodeRef';
-import { printNodeRefGroup } from './print/nodeRefGroup';
-import { printSubgraph } from './print/subgraph';
+import { printAttribute } from './print/attribute.js';
+import { printAttributeList } from './print/attributeList.js';
+import { printComment } from './print/comment.js';
+import { printDot } from './print/dot.js';
+import { printEdge } from './print/edge.js';
+import { embed } from './print/embed.js';
+import { printGraph } from './print/graph.js';
+import { printLiteral } from './print/literal.js';
+import { printNode } from './print/node.js';
+import { printNodeRef } from './print/nodeRef.js';
+import { printNodeRefGroup } from './print/nodeRefGroup.js';
+import { printSubgraph } from './print/subgraph.js';
 
-export const DotASTPrinter: Printer<AST.ASTNode> = {
-  print(path: AstPath<AST.ASTNode>, options: ParserOptions, print: (path: AstPath) => Doc): Doc {
+export const DotASTPrinter: Printer<ASTNode> = {
+  print(path: AstPath<ASTNode>, options: ParserOptions, print: (path: AstPath) => Doc): Doc {
     const node = path.getValue();
     switch (node.type) {
-      case AST.Types.Dot:
+      case 'Dot':
         return printDot({ node, path, options, print });
-      case AST.Types.Graph:
+      case 'Graph':
         return printGraph({ node, path, options, print });
-      case AST.Types.Attribute:
+      case 'Attribute':
         return printAttribute({ node, path, options, print });
-      case AST.Types.Attributes:
-        return printAttributes({ node, path, options, print });
-      case AST.Types.Comment:
+      case 'AttributeList':
+        return printAttributeList({ node, path, options, print });
+      case 'Comment':
         return printComment({ node, path, options, print });
-      case AST.Types.Edge:
+      case 'Edge':
         return printEdge({ node, path, options, print });
-      case AST.Types.Node:
+      case 'Node':
         return printNode({ node, path, options, print });
-      case AST.Types.Literal:
+      case 'Literal':
         return printLiteral({ node, path, options, print });
-      case AST.Types.NodeRef:
+      case 'NodeRef':
         return printNodeRef({ node, path, options, print });
-      case AST.Types.NodeRefGroup:
+      case 'NodeRefGroup':
         return printNodeRefGroup({ node, path, options, print });
-      case AST.Types.Subgraph:
+      case 'Subgraph':
         return printSubgraph({ node, path, options, print });
     }
   },
