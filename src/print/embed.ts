@@ -1,4 +1,4 @@
-import { AST } from '@ts-graphviz/parser';
+import { ASTNode } from 'ts-graphviz/ast';
 import { AstPath, doc, Doc, Options, ParserOptions } from 'prettier';
 
 const {
@@ -6,12 +6,12 @@ const {
 } = doc;
 
 export function embed(
-  path: AstPath<AST.ASTNode>,
+  path: AstPath<ASTNode>,
   textToDoc: (text: string, options: Options) => Doc,
   options: ParserOptions,
 ): Doc | undefined {
   const node = path.getValue();
-  if (node.type == AST.Types.Literal && node.quoted === 'html') {
+  if (node.type == 'Literal' && node.quoted === 'html') {
     const htmlLike = textToDoc(node.value, { ...options, parser: 'html' });
     if (Array.isArray(htmlLike)) {
       const index = htmlLike.lastIndexOf(hardline);

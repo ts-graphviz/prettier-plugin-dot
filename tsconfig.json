@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "importHelpers": true,
-    "target": "ES2015",
+    "module": "ESNext",
+    "target": "ESNext",
     "strict": true,
-    "lib": ["esnext"],
+    "lib": ["ESNext"],
     "allowJs": false,
     "alwaysStrict": true,
     "strictNullChecks": true,
     "outDir": "lib",
     "rootDir": "src",
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "declaration": true
   },

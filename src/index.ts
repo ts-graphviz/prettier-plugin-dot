@@ -1,6 +1,6 @@
 import { Parser, Printer, SupportLanguage } from 'prettier';
-import { DotParser } from './parser';
-import { DotASTPrinter } from './printer';
+import { DotParser } from './parser.js';
+import { DotASTPrinter } from './printer.js';
 
 export const languages: SupportLanguage[] = [
   {

@@ -14,15 +14,15 @@ const options = [
         },
       }),
     ],
-    external: ['@ts-graphviz/parser', 'prettier'],
+    external: ['ts-graphviz/ast', 'prettier'],
     output: [
       {
         format: 'cjs',
-        file: './lib/index.js',
+        file: './lib/index.cjs',
       },
       {
         format: 'esm',
-        file: './lib/index.mjs',
+        file: './lib/index.js',
       },
     ],
   },

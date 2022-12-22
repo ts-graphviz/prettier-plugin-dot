@@ -1,12 +1,12 @@
-import { AST } from '@ts-graphviz/parser';
+import { NodeRefASTNode } from 'ts-graphviz/ast';
 import { doc, Doc } from 'prettier';
-import { PrintOption } from './types';
+import { PrintOption } from './types.js';
 
 const {
   builders: { join },
 } = doc;
 
-export function printNodeRef({ node, path, print }: PrintOption<AST.NodeRef>): Doc {
+export function printNodeRef({ node, path, print }: PrintOption<NodeRefASTNode>): Doc {
   return join(':', [
     path.call(print, 'id'),
     ...(node.port ? [path.call(print, 'port')] : []),
