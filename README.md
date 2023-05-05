@@ -4,8 +4,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg)](#contributors)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg)](#contributors)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 # Prettier for Graphviz Dot
@@ -73,11 +72,14 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>⚖️
-    <td align="center"><a href="http://blog.kamiazya.tech/"><img src="https://avatars.githubusercontent.com/u/35218186?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yuki Yamazaki</b></sub></a><br /><a href="https://github.com/ts-graphviz/prettier-plugin-dot/commits?author=kamiazya" title="Documentation">📖</a> <a href="https://github.com/ts-graphviz/prettier-plugin-dot/commits?author=kamiazya" title="Tests">⚠️</a> <a href="https://github.com/ts-graphviz/prettier-plugin-dot/commits?author=kamiazya" title="Code">💻</a></td>
-    <td align="center"><a href="https://thewilkybarkid.dev"><img src="https://avatars.githubusercontent.com/u/1784740?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Chris Wilkinson</b></sub></a><br /><a href="https://github.com/ts-graphviz/prettier-plugin-dot/issues?q=author%3Athewilkybarkid" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="http://safareli.github.io/resume/"><img src="https://avatars.githubusercontent.com/u/1932383?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Irakli Safareli</b></sub></a><br /><a href="#ideas-safareli" title="Ideas, Planning, & Feedback">🤔</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="http://blog.kamiazya.tech/"><img src="https://avatars.githubusercontent.com/u/35218186?v=4?s=100" width="100px;" alt="Yuki Yamazaki"/><br /><sub><b>Yuki Yamazaki</b></sub></a><br /><a href="https://github.com/ts-graphviz/prettier-plugin-dot/commits?author=kamiazya" title="Documentation">📖</a> <a href="https://github.com/ts-graphviz/prettier-plugin-dot/commits?author=kamiazya" title="Tests">⚠️</a> <a href="https://github.com/ts-graphviz/prettier-plugin-dot/commits?author=kamiazya" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://thewilkybarkid.dev"><img src="https://avatars.githubusercontent.com/u/1784740?v=4?s=100" width="100px;" alt="Chris Wilkinson"/><br /><sub><b>Chris Wilkinson</b></sub></a><br /><a href="https://github.com/ts-graphviz/prettier-plugin-dot/issues?q=author%3Athewilkybarkid" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="http://safareli.github.io/resume/"><img src="https://avatars.githubusercontent.com/u/1932383?v=4?s=100" width="100px;" alt="Irakli Safareli"/><br /><sub><b>Irakli Safareli</b></sub></a><br /><a href="#ideas-safareli" title="Ideas, Planning, & Feedback">🤔</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/thought2"><img src="https://avatars.githubusercontent.com/u/18749447?v=4?s=100" width="100px;" alt="Michael Bock"/><br /><sub><b>Michael Bock</b></sub></a><br /><a href="https://github.com/ts-graphviz/prettier-plugin-dot/issues?q=author%3Athought2" title="Bug reports">🐛</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->
